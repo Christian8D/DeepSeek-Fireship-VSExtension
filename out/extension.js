@@ -81,7 +81,8 @@ function activate(context) {
     context.subscriptions.push(disposable);
 }
 function deactivate() { }
-// Function to return the HTML content of the webview
+
+
 function getWebviewContent() {
     return /*HTML*/ `
         <!DOCTYPE html>
@@ -93,12 +94,21 @@ function getWebviewContent() {
             <style>
                 body { font-family: Arial, sans-serif; padding: 20px; }
                 h1 { color: #007acc; }
-                #chatbox { border: 1px solid #ddd; padding: 10px; height: 300px; overflow-y: auto; margin-bottom: 10px; }
+                #chatbox { 
+                    border: 1px solid #ddd; 
+                    padding: 10px; 
+                    height: 300px; 
+                    overflow-y: auto; 
+                    margin-bottom: 10px; 
+                }
                 textarea { width: 100%; padding: 8px; margin-top: 10px; resize: vertical; }
                 button { padding: 8px 16px; margin-top: 10px; }
-                .message { margin: 5px 0; }
+                .message { 
+                    margin: 5px 0; 
+                    white-space: pre-wrap; /* Preserve whitespace and line breaks */
+                }
                 .user { color: #007acc; }
-                .deepseek { color:rgb(97, 175, 212); }
+                .deepseek { color: rgb(97, 175, 212); }
             </style>
         </head>
         <body>
@@ -134,7 +144,7 @@ function getWebviewContent() {
                     const chatbox = document.getElementById('chatbox');
                     const messageElement = document.createElement('p');
                     messageElement.className = 'message ' + (sender.toLowerCase());
-                    messageElement.innerHTML = '<strong>' + sender + ':</strong> ' + message;
+                    messageElement.textContent = sender + ': ' + message; // Use textContent to preserve formatting
                     chatbox.appendChild(messageElement);
                     chatbox.scrollTop = chatbox.scrollHeight;
                 }
@@ -149,8 +159,9 @@ function getWebviewContent() {
                         deepSeekElement.innerHTML = '<strong>DeepSeek:</strong> ';
                         document.getElementById('chatbox').appendChild(deepSeekElement);
                     }
-                    // Update the content
-                    deepSeekElement.innerHTML = '<strong>DeepSeek:</strong> ' + message;
+                    // Replace newline characters with <br> for proper formatting
+                    const formattedMessage = message.replace(/\\n/g, '<br>');
+                    deepSeekElement.innerHTML = '<strong>DeepSeek:</strong> ' + formattedMessage;
                     document.getElementById('chatbox').scrollTop = document.getElementById('chatbox').scrollHeight;
                 }
             </script>
@@ -158,4 +169,3 @@ function getWebviewContent() {
         </html>
     `;
 }
-//# sourceMappingURL=extension.js.map
