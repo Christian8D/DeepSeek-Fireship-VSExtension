@@ -1,7 +1,7 @@
 # CC-DeepSeek-ext README
 
 
-FireShip Vid Ref
+Beyond FireShip Vid Ref
 https://www.youtube.com/watch?v=clJCDHml2cA
 
 This is the README for your extension "CC-DeepSeek-ext". After writing up a brief description, we recommend including the following sections.
