@@ -1,21 +1,48 @@
 {
-  "name": "cc-deepseek-ext",
-  "displayName": "CC-DeepSeek-ext",
-  "description": "",
-  "version": "0.0.1",
+  "name": "deepseek-chat-extension",
+  "displayName": "DeepSeek Chat Extension",
+  "description": "A VSCode extension that integrates DeepSeek LLM for interactive chats and intelligent code completions.",
+  "version": "1.1.0",
+  "publisher": "your-publisher-name",
   "engines": {
-    "vscode": "^1.96.0"
+    "vscode": "^1.60.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": ["onCommand:cc-deepseek-ext.Deep"],
+  "activationEvents": [
+    "onCommand:CC-DeepSeek-ext.Deep",
+    "onCommand:CC-DeepSeek-ext.GenerateCompletion",
+    "onCommand:CC-DeepSeek-ext.ExplainCode"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "CC-DeepSeek-ext.Deep",
-        "title": "Chat with DeepSeek"
+        "title": "Deep Seek Chat"
+      },
+      {
+        "command": "CC-DeepSeek-ext.GenerateCompletion",
+        "title": "DeepSeek: Generate Code Completion"
+      },
+      {
+        "command": "CC-DeepSeek-ext.ExplainCode",
+        "title": "DeepSeek: Explain Selected Code"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "CC-DeepSeek-ext.GenerateCompletion",
+        "key": "ctrl+alt+c",
+        "mac": "cmd+alt+c",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "CC-DeepSeek-ext.ExplainCode",
+        "key": "ctrl+alt+x",
+        "mac": "cmd+alt+x",
+        "when": "editorTextFocus && editorHasSelection"
       }
     ]
   },
@@ -23,20 +50,13 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
+    "postinstall": "node ./node_modules/vscode/bin/install"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/node": "20.x",
-    "@types/vscode": "^1.96.0",
-    "@typescript-eslint/eslint-plugin": "^8.17.0",
-    "@typescript-eslint/parser": "^8.17.0",
-    "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1",
-    "eslint": "^9.16.0",
-    "typescript": "^5.7.2"
+    "@types/node": "^22.12.0",
+    "typescript": "^4.0.0",
+    "vscode": "^1.1.37"
   },
   "dependencies": {
     "ollama": "^0.5.12"
